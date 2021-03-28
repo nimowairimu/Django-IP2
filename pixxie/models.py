@@ -10,23 +10,23 @@ class Profile(models.Model):
     # user = models.CharField(User, on_delete=models.CASCADE, default= user)
     bio = models.TextField(max_length = 50)
 
-    def __str__(self):
-        return self.profile_photo
+    # def __str__(self):
+    #     return self.profile_photo
     
-    def save_profile(self):
-        self.save()
+    # def save_profile(self):
+    #     self.save()
     
-    def delete_profile(self):
-        self.delete()
+    # def delete_profile(self):
+    #     self.delete()
 
 
-# class Image(models.Model):
-#     image = models.ImageField(upload_to="user_directory_path",verbose_name ='Picture', null=False)
-#     image_name = models.CharField(max_length = 30)
-#     image_caption = models.TextField(max_length = 30)
-#     profile  = models.ForeignKey('Profile', on_delete= models.DO_NOTHING,)
-#     likes =models.IntegerField( blank=True,null=True )
-#     comments =models.TextField(max_length = 50) 
+class Image(models.Model):
+    image = models.ImageField(upload_to="user_directory_path",verbose_name ='Picture', null=False)
+    image_name = models.CharField(max_length = 30)
+    image_caption = models.TextField(max_length = 30)
+    profile  = models.ForeignKey('Profile', on_delete= models.DO_NOTHING,)
+    likes =models.IntegerField( blank=True,null=True )
+    comments =models.TextField(max_length = 50) 
 
     def get_absolute_url(self):
         return reverse('postdetails', args=[str(self.id)])
