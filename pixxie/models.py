@@ -28,18 +28,18 @@ class Image(models.Model):
     likes =models.IntegerField( blank=True,null=True )
     comments =models.TextField(max_length = 50) 
 
-    def get_absolute_url(self):
-        return reverse('postdetails', args=[str(self.id)])
+    # def get_absolute_url(self):
+    #     return reverse('postdetails', args=[str(self.id)])
 
-    def __str__(self):
-        return self.post
+    # def __str__(self):
+    #     return self.post
 
-    def save_image(self):
-        self.save()
+    # def save_image(self):
+    #     self.save()
 
-# class Follow(models.Model):
-# 	follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
-# 	following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
+class Follow(models.Model):
+	follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
+	following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
     
-# def __str__(self):
-#     return f'{self.follower} Follow' 
+def __str__(self):
+    return f'{self.follower} Follow' 
