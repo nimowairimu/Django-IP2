@@ -19,10 +19,10 @@ class ProfileTestClass(TestCase):
                                     
 
     
-class ImageTestClass(TestCase):
-    def setUp(self):
-        self.post = Image( 1,'static/logo.png','karura','slim thick',1,23,'Wueeh')
-    def test_save_image(self):
-        self.post.save_image()
-        image = Image.objects.all()
-        self.assertTrue(len(image) > 0)
+# class ImageTestClass(TestCase):
+#     def setUp(self):
+#         self.post = Image( 1,'static/logo.png','karura','slim thick',1,23,'Wueeh')
+#     def test_save_image(self):
+#         self.post.save_image()
+#         image = Image.objects.all()
+#         self.assertTrue(len(image) > 0)
