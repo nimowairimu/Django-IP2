@@ -10,14 +10,14 @@ class Profile(models.Model):
     # user = models.CharField(User, on_delete=models.CASCADE, default= user)
     bio = models.TextField(max_length = 50)
 
-    # def __str__(self):
-    #     return self.profile_photo
+    def __str__(self):
+        return self.profile_photo
     
-    # def save_profile(self):
-    #     self.save()
+    def save_profile(self):
+        self.save()
     
-    # def delete_profile(self):
-    #     self.delete()
+    def delete_profile(self):
+        self.delete()
 
 
 class Image(models.Model):
