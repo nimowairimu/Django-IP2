@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for profile in profiles %}
+{{ prof }}
+<br>
+<a href="/profiles/{{profile.pk}}">
+  <button class="btn-sm btn-info">See</button>
+</a>
+{% endfor %}
+{% endblock %}
