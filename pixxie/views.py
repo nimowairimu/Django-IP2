@@ -35,8 +35,8 @@ def newPost(request):
         form = NewPostForm(request.POST, request.FILES)        
         if form.is_valid():
             image=form.cleaned_data.get('image')
-            imageCaption=form.cleaned_data.get('imageCaption')
-            post = Image(image = image,imageCaption= imageCaption, profile=user_profile)
+            imageCaption=form.cleaned_data.get('image_caption')
+            post = Image(image = image,imageCaption= image_caption, profile=user_profile)
             post.savePost()
             
         else:
@@ -45,15 +45,15 @@ def newPost(request):
         return redirect('home')
 
     else:
-        form = NewPostForm()
+        form = PostForm()
     return render(request, 'newPost.html', {"form": form})
     
 @login_required(login_url='/accounts/login/')    
 def profile(request):
     if request.method == 'POST':
 
-        userForm = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = profileForm(
+        userForm = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateUserProfileForm(
             request.POST, request.FILES, instance=request.user)
 
         if  profile_form.is_valid():
@@ -64,8 +64,8 @@ def profile(request):
 
     else:
         
-        profile_form = profileForm(instance=request.user)
-        user_form = UserUpdateForm(instance=request.user)
+        profile_form = UpdateUserProfileForm(instance=request.user)
+        user_form = UpdateUserForm(instance=request.user)
 
         params = {
             'user_form':user_form,
@@ -75,10 +75,7 @@ def profile(request):
 
     return render(request, 'profile.html', params)
 
-def prof(request):
-    # user_prof = get_object_or_404(User, username=username)
-    # if request.user == user_prof:
-    #     return redirect('profile', username=request.user.username)
+def profile(request):
     profile = Profile.objects.filter(user = request.user)
     return render(request,"users/profile.html",{"profile":profile})
 
@@ -86,8 +83,8 @@ def prof(request):
 def editProfile(request):
     if request.method == 'POST':
 
-        userForm = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = profileForm(
+        userForm = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateUserProfileForm(
             request.POST, request.FILES, instance=request.user)
 
         if  profile_form.is_valid():
@@ -98,8 +95,8 @@ def editProfile(request):
 
     else:
         
-        profile_form = profileForm(instance=request.user)
-        user_form = UserUpdateForm(instance=request.user)
+        profile_form = UpdateUserProfileForm(instance=request.user)
+        user_form = UpdateUserForm(instance=request.user)
 
         params = {
             'user_form':user_form,
