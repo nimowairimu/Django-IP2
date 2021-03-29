@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 def user_directory_path(instance,filename):
     return 'user_{0}/{1}'.format(instance.user.id,filename)
 
-class Profile(models.Model):
-    profile_photo = models.ImageField(upload_to="static/") 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length = 50)
+# class Profile(models.Model):
+#     profile_photo = models.ImageField(upload_to="static/") 
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     bio = models.TextField(max_length = 50)
 
     def __str__(self):
         return str(self.profile_photo)
