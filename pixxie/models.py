@@ -6,10 +6,10 @@ from django.contrib.auth.models import User
 def user_directory_path(instance,filename):
     return 'user_{0}/{1}'.format(instance.user.id,filename)
 
-# class Profile(models.Model):
-#     profile_photo = models.ImageField(upload_to="static/") 
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     bio = models.TextField(max_length = 50)
+class Profile(models.Model):
+    profile_photo = models.ImageField(upload_to="static/") 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length = 50)
 
     def __str__(self):
         return str(self.profile_photo)
@@ -19,6 +19,11 @@ def user_directory_path(instance,filename):
     
     def delete_profile(self):
         self.delete()
+    
+@classmethod
+def get_profile(cls, name):
+    return cls.objects.filter(user__username__icontains=name).all()
+
 
 
 class Image(models.Model):
@@ -37,6 +42,25 @@ class Image(models.Model):
 
     def save_image(self):
         self.save()
+    
+    def savePost(self):
+        print(self)
+        return self.save()
+
+    
+    @property
+    def get_all_comments(self):
+        return self.comments.all()
+
+    def delete_image(self):
+        self.delete()
+
+    def total_likes(self):
+        return self.likes.count()    
+
+
+    def __str__(self):
+        return self.imageName   
 
 class Follow(models.Model):
 	follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
@@ -44,3 +68,16 @@ class Follow(models.Model):
     
 def __str__(self):
     return f'{self.follower} Follow' 
+
+class Comment(models.Model):
+    comment = models.TextField()
+    postt= models.ForeignKey(Image, on_delete=models.CASCADE)
+    userr= models.ForeignKey(Profile, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def save_comment(self):
+        self.user
+
+    def delete_comment(self):
+        self.delete()
