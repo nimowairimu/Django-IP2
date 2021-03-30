@@ -48,7 +48,7 @@ def newPost(request):
         form = PostForm()
     return render(request, 'newPost.html', {"form": form})
     
-@login_required(login_url='/accounts/login/')    
+@login_required(login_url='login/')    
 def profile(request):
     if request.method == 'POST':
 
@@ -75,7 +75,7 @@ def profile(request):
 
     return render(request, 'profile.html', params)
 
-def profile(request):
+def get_profile(request):
     profile = Profile.objects.filter(user = request.user)
     return render(request,"users/profile.html",{"profile":profile})
 
@@ -105,6 +105,22 @@ def editProfile(request):
         }
 
     return render(request, 'editprofile.html', params)
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+
 
 @login_required(login_url='/accounts/login/')
 def comment(request,id):
@@ -202,7 +218,7 @@ def follow_unfollow(request):
         return redirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.path_info)
         # return redirect('profile-list-view ')
-def folo(request,id):
+def follow(request,id):
     current_user = request.user
     usertoFollow = User.objects.get(id = id)
     follow = Followwww(user,usetoFollow)
