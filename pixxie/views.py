@@ -1,11 +1,9 @@
 from __future__ import unicode_literals
-from django.shortcuts import render,redirect
-from django.http  import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm,CommentForm,UpdateUserProfileForm,UpdateUserForm,SignUpForm
-from .models import Image, Profile,Comment,Follow
+from .forms import NewPostForm,CommentForm,profileForm,UserUpdateForm,profileForm,RegistrationForm
+from .models import Image, Profile,Comment,Followwww
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -35,8 +33,8 @@ def newPost(request):
         form = NewPostForm(request.POST, request.FILES)        
         if form.is_valid():
             image=form.cleaned_data.get('image')
-            imageCaption=form.cleaned_data.get('image_caption')
-            post = Image(image = image,imageCaption= image_caption, profile=user_profile)
+            imageCaption=form.cleaned_data.get('imageCaption')
+            post = Image(image = image,imageCaption= imageCaption, profile=user_profile)
             post.savePost()
             
         else:
@@ -45,15 +43,15 @@ def newPost(request):
         return redirect('home')
 
     else:
-        form = PostForm()
+        form = NewPostForm()
     return render(request, 'newPost.html', {"form": form})
     
-@login_required(login_url='login/')    
+@login_required(login_url='/accounts/login/')    
 def profile(request):
     if request.method == 'POST':
 
-        userForm = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateUserProfileForm(
+        userForm = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = profileForm(
             request.POST, request.FILES, instance=request.user)
 
         if  profile_form.is_valid():
@@ -64,8 +62,8 @@ def profile(request):
 
     else:
         
-        profile_form = UpdateUserProfileForm(instance=request.user)
-        user_form = UpdateUserForm(instance=request.user)
+        profile_form = profileForm(instance=request.user)
+        user_form = UserUpdateForm(instance=request.user)
 
         params = {
             'user_form':user_form,
@@ -75,7 +73,10 @@ def profile(request):
 
     return render(request, 'profile.html', params)
 
-def get_profile(request):
+def prof(request):
+    # user_prof = get_object_or_404(User, username=username)
+    # if request.user == user_prof:
+    #     return redirect('profile', username=request.user.username)
     profile = Profile.objects.filter(user = request.user)
     return render(request,"users/profile.html",{"profile":profile})
 
@@ -83,8 +84,8 @@ def get_profile(request):
 def editProfile(request):
     if request.method == 'POST':
 
-        userForm = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateUserProfileForm(
+        userForm = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = profileForm(
             request.POST, request.FILES, instance=request.user)
 
         if  profile_form.is_valid():
@@ -95,8 +96,8 @@ def editProfile(request):
 
     else:
         
-        profile_form = UpdateUserProfileForm(instance=request.user)
-        user_form = UpdateUserForm(instance=request.user)
+        profile_form = profileForm(instance=request.user)
+        user_form = UserUpdateForm(instance=request.user)
 
         params = {
             'user_form':user_form,
@@ -105,22 +106,6 @@ def editProfile(request):
         }
 
     return render(request, 'editprofile.html', params)
-
-def signup(request):
-    if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('index')
-    else:
-        form = SignUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
-
-
 
 @login_required(login_url='/accounts/login/')
 def comment(request,id):
@@ -218,7 +203,7 @@ def follow_unfollow(request):
         return redirect(request.META.get('HTTP_REFERER'))
     return HttpResponseRedirect(request.path_info)
         # return redirect('profile-list-view ')
-def follow(request,id):
+def folo(request,id):
     current_user = request.user
     usertoFollow = User.objects.get(id = id)
     follow = Followwww(user,usetoFollow)
@@ -246,8 +231,3 @@ def register(request):
         'profForm': prof
     }
     return render(request, 'users/register.html', params)    
-
-
-
-     
-     

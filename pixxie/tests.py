@@ -1,28 +1,41 @@
 from django.test import TestCase
-from .models import Image,Profile
-# Create your tests here.
+from .models import Profile, Image
+from django.contrib.auth.models import User
 
-class ProfileTestClass(TestCase):
+
+class TestProfile(TestCase):
     def setUp(self):
-       self.nimo = Profile(1,'default.jpg','babygirl')
-    
+        self.user = User(user='dorcas')
+        self.user.save()
+
+        self.profileTest = Profile(id=1, profilephoto='test.jpg', Bio='test profile',
+                                    user=self.user)
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.profileTest, Profile))
+
     def test_save_profile(self):
-        self.nimo.save_profile()
-        nimo_profile = Profile.objects.all()
-        self.assertTrue(len(nimo_profile) > 0)
-    
-    def test_delete_profile(self):
-        self.nimo.delete_profile()
-        nimo_profile = Profile.objects.all()
-        self.assertTrue(len(nimo_profile) < 1)
+        self.profileTest.save_profile()
+        pp = Profile.objects.all()
+        self.assertTrue(len(pp) > 0)
 
-                                    
 
-    
-class ImageTestClass(TestCase):
+class TestImage(TestCase):
     def setUp(self):
-        self.post = Image( 1,'static/logo.png','karura','slim thick',1,23,'Wueeh')
+        self.profileTest = Profile(user=User(user='test'))
+        self.profileTest.save()
+
+        self.imageTest = Image(image='default.png', imageName='test', imageCaption='default test', user=self.profile_test)
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.imageTest, Image))
+
     def test_save_image(self):
-        self.post.save_image()
-        image = Image.objects.all()
-        self.assertTrue(len(image) > 0)
+        self.imageTest.savePost()
+        images = Image.objects.all()
+        self.assertTrue(len(images) > 0)
+
+    def test_delete_image(self):
+        self.imageTest.delete_image()
+        pp = Profile.objects.all()
+        self.assertTrue(len(pp) < 1)

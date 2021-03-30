@@ -1,48 +1,46 @@
-from django.db import models
-from django.db.models.signals import post_save
+from __future__ import unicode_literals
 from django.contrib.auth.models import User
+from django.db import models
+from cloudinary.models import CloudinaryField
 
 
-def user_directory_path(instance,filename):
-    return 'user_{0}/{1}'.format(instance.user.id,filename)
+
+# Create your models here.
 
 class Profile(models.Model):
-    profile_photo = models.ImageField(upload_to="static/") 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length = 50)
+    profilephoto = CloudinaryField('profile photo')
+    Bio = models.CharField(max_length=30)
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    following = models.ManyToManyField(User,blank=True,related_name='follow')
 
     def __str__(self):
-        return str(self.profile_photo)
+        return self.user.username
+
+
     
     def save_profile(self):
-        self.save()
-    
+        self.user
+
     def delete_profile(self):
-        self.delete()
-    
-@classmethod
-def get_profile(cls, name):
-    return cls.objects.filter(user__username__icontains=name).all()
+        self.delete()    
 
 
+    @classmethod
+    def search_profile(cls, name):
+        return cls.objects.filter(user__username__icontains=name).all()
+
+class Followwww(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    followers = models.CharField(max_length=30)        
 
 class Image(models.Model):
-    image = models.ImageField(upload_to="user_directory_path",verbose_name ='Picture', null=False)
-    image_name = models.CharField(max_length = 30)
-    image_caption = models.TextField(max_length = 30)
-    profile  = models.ForeignKey('Profile', on_delete= models.DO_NOTHING,)
-    likes =models.IntegerField( blank=True,null=True )
-    comments =models.TextField(max_length = 50) 
+    image = CloudinaryField('images')
+    imageName = models.CharField(max_length=30,blank=True)
+    imageCaption = models.CharField(max_length=300)
+    profile = models.ForeignKey(Profile,on_delete = models.CASCADE)
+    likes = models.ManyToManyField(User, related_name='likes', blank=True, )
+    comments = models.CharField(max_length=30,blank=True)
 
-    def get_absolute_url(self):
-        return reverse('postdetails', args=[str(self.id)])
-
-    def __str__(self):
-         return str(self.image)
-
-    def save_image(self):
-        self.save()
-    
     def savePost(self):
         print(self)
         return self.save()
@@ -60,14 +58,7 @@ class Image(models.Model):
 
 
     def __str__(self):
-        return self.imageName   
-
-class Follow(models.Model):
-	follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
-	following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
-    
-def __str__(self):
-    return f'{self.follower} Follow' 
+        return self.imageName    
 
 class Comment(models.Model):
     comment = models.TextField()
@@ -81,3 +72,5 @@ class Comment(models.Model):
 
     def delete_comment(self):
         self.delete()
+
+

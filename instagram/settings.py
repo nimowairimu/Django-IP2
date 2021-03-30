@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -35,6 +38,7 @@ INSTALLED_APPS = [
     'pixxie.apps.PixxieConfig',
     'django.contrib.admin',
     'bootstrap4',
+    'cloudinary',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -81,7 +85,7 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pixxie',
+        'NAME': 'instagram',
         'USER': 'nimo',
     'PASSWORD':'kadesho62',
     }
@@ -132,6 +136,12 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-LOGIN_REDIRECT_URL = 'main'
+LOGIN_REDIRECT_URL = 'home'
 
 LOGOUT_REDIRECT_URL = 'login'
+
+cloudinary.config( 
+  cloud_name = "dbdaabcxr", 
+  api_key = "388228873379869", 
+  api_secret = "7jQEu12De26r0srjbzqrxUJMeMw" 
+)
