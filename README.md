@@ -32,7 +32,7 @@ source virtual/bin/activate
 ## Installation
 #### Cloning the repository:
 https://github.com/nimowairimu/Django-IP2.git
-####Navigate into the folder and install requirements
+#### Navigate into the folder and install requirements
 cd Instagram_Clone pip install -r requirements.txt 
 #### Install and activate Virtual
 - python3 -m venv virtual - source virtual/bin/activate  
