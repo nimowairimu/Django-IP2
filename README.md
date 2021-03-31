@@ -3,7 +3,7 @@
 
 ## Author
 
-Wairimu Mungai 
+Irene Wairimu Mungai 
 
 ## Description
 This is an application that allows users to sign up, upload pictures,view other user's pictures,like them, comment on them and also follow the other users just like teh instagram application
@@ -29,16 +29,16 @@ python3.6 -m virtualenv virtual
 source virtual/bin/activate
 ```
 
-##Setting up /Installation
-####Cloning the repository:
+## Installation
+#### Cloning the repository:
 https://github.com/nimowairimu/Django-IP2.git
 ####Navigate into the folder and install requirements
 cd Instagram_Clone pip install -r requirements.txt 
-####Install and activate Virtual
+#### Install and activate Virtual
 - python3 -m venv virtual - source virtual/bin/activate  
-####Install Dependencies
+#### Install Dependencies
 pip install -r requirements.txt 
-####Setup Database your database
+#### Setup Database your database
 1. SetUp your database User,Password
 1. python manage.py makemigrations instagram
 1. python manage.py migrate 
@@ -47,7 +47,7 @@ pip install -r requirements.txt
 1. Running the application
 1. python manage.py server 
 
-####Testing the application
+#### Testing the application
 1. python manage.py test 
 Open the application on your browser 127.0.0.1:8000.
         
