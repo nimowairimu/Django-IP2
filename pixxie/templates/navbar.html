@@ -1,7 +1,7 @@
 <header class="site-header">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md " style="background-color: #C7DA24;">
         <div class="container">
-            <a class="navbar-brand mr-4" href="{% url 'home' %}">Instagram</a>
+            <a class="navbar-brand mr-4" href="{% url 'home' %}" style="font-family:Ultra ;font-size: 30px;">Pixxiegram</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                 aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -17,7 +17,7 @@
                     {% csrf_token %}
                     <form class="form-inline" action="{%url "search" %}">
                         <div class="md-form my-0">
-                            <input class="form-control mr-sm-5" type="text" placeholder="Search" name="searchUser"
+                            <input class="form-control mr-sm-5" type="text" placeholder="Search" name="searchUser" style="font-weight: bold;"
                                 aria-label="Search">
                         </div>
                     </form>
@@ -25,8 +25,8 @@
                         <i class="fas fa-user text-white h3 ">
                         </i>
                     </a>
-                    <a href="{%url 'logout'%}" class="pl-5">
-                        <i class="fas fa-sign-out-alt" style="font-size: 30px;"></i>
+                    <a href="{%url 'logout'%}" class="pl-5" style="font-weight: bold;">
+                       Logout
                     </a>
                     {% else %}
                     <a class="nav-item nav-link" href="accounts/login">Login</a>

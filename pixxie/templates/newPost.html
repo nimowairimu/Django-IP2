@@ -1,7 +1,7 @@
 {%extends "base.html"%}
 {% load bootstrap4 %}
 {% block content %}
-<div class="container" style="font-family: 'Jost', sans-serif;">
+<div class="container" style="font-family: 'Domine';">
     <div class="row">
 
         <div class="col-md-6 mx-auto card p-5 mt-5">
@@ -16,7 +16,7 @@
                         {% csrf_token %}
                         {% bootstrap_form form %}
                         <div class="form-group">
-                            <input type="submit" class="btn btn-primary btn-sm" value="Post">
+                            <input type="submit" class="btn btn-danger btn-sm" value="Post">
                         </div>
                         <input type="hidden" name="next" value="{{next}}">
 

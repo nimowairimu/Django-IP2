@@ -1,9 +1,9 @@
 {%extends 'base.html'%}
 {%block content%}
-<div class="container" style="font-family: 'Jost', sans-serif;">
-    <h1>Welcome {{user.username}}</h1>
+<div class="container" style="font-family: 'Domine';">
+    <h1>Hey {{user.username}} welcome to Pixxiegram</h1>
     <a href="{%url 'newPost'%}">
-        <button type="submit" class="btn btn-sm btn-outline-default" style="margin-top:14px; margin-left:-10px">Add
+        <button type="submit" class="btn btn-sm btn-outline-warning" style="margin-top:14px; margin-left:-10px">Add
             post</button>
     </a>
     <hr>
@@ -20,7 +20,7 @@
                     
                         </a>
                         <div class="row pl-4">
-                            <a href="" ><i class="fas fa-heart h2 fa-fw pr-3"></i>
+                            <a href="" ><i class="fas fa-heart h2 fa-fw pr-3">{{post.likes.Count}}</i>
                             <a href="{% url 'comment' post.id %}"><i class="fas fa-comment h2 fa-fw pr-3"></i></a>
                             <!-- <p>likes: {{total_likes}}</p> -->
                         </div>
