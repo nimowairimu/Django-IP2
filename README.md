@@ -8,6 +8,14 @@ Irene Wairimu Mungai
 ## Description
 This is an application that allows users to sign up, upload pictures,view other user's pictures,like them, comment on them and also follow the other users just like teh instagram application
 
+## User Stories
+A user is able to;
+1. Sign in to the application to start using.
+1. Upload my pictures to the application.
+1. See my profile with all my pictures.
+1. Follow other users and see their pictures on my timeline.
+1. Like a picture and leave a comment on it.
+
 
 
 
